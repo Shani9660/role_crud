@@ -24,10 +24,10 @@
                             </div>
 
                             <div class="grid grid-cols-4">
-                                @foreach ($permission as $permissions)
+                                @foreach ($permissions as $permission)
                                 <div class="mt-3">
-                                    <input type="checkbox" class="rounded" name="permission[]" value="{{$permissions->name}}" id="permission-{{$permissions->id}}">
-                                    <label for="permission-{{$permissions->id}}">{{ $permissions->name }}</label>
+                                    <input type="checkbox" class="rounded" name="permission[]" value="{{$permission->name}}" id="permission-{{$permission->id}}">
+                                    <label for="permission-{{$permission->id}}">{{ $permission->name }}</label>
                                 </div>
                                     
                                 @endforeach
