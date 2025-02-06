@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\RolesRepositoryInterface;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class RolesController extends Controller
+class RolesController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+         return[
+            new Middleware('permission:view roles', only: ['index']),
+            new Middleware('permission:edit roles', only: ['edit']),
+            new Middleware('permission:create roles', only: ['create']),
+            new Middleware('permission:destory roles', only: ['destroy']),
+
+         ];
+    }
     protected $rolesRepository;
 
     public function __construct(RolesRepositoryInterface $rolesRepository)

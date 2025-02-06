@@ -7,9 +7,21 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+         return[
+            new Middleware('permission:view users', only: ['index']),
+            new Middleware('permission:edit users', only: ['edit']),
+            new Middleware('permission:create users', only: ['create']),
+            new Middleware('permission:delete users', only: ['destroy']),
+
+         ];
+    }
     protected $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)

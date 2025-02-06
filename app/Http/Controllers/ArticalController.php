@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\ArticalRepositoryInterface;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ArticalController extends Controller
+class ArticalController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+         return[
+            new Middleware('permission:view articals', only: ['index']),
+            new Middleware('permission:edit articals', only: ['edit']),
+            new Middleware('permission:create articals', only: ['create']),
+            new Middleware('permission:destory articals', only: ['destroy']),
+
+         ];
+    }
     protected $articalRepository;
 
    

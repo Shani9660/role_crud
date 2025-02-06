@@ -29,8 +29,12 @@
                         <td class="px-6 py-3 text-left">{{$article->author}}</td>
                         <td class="px-6 py-3 text-left">{{ $article->created_at->toFormattedDateString() }}</td>
                         <td class="px-6 py-3 text-center">
-                         <a href="{{ route('articals.edit', $article->id ) }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Edit</a>
-                        <a href="javascript:void(0)" onclick='deleteArticle({{$article->id}})' class="bg-red-700 text-sm rounded-md text-white px-3 py-2">Delete</a>
+                        @can('edit articals')
+                        <a href="{{ route('articals.edit', $article->id ) }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Edit</a>  
+                        @endcan
+                        @can('delete articals')
+                        <a href="javascript:void(0)" onclick='deleteArticle({{$article->id}})' class="bg-red-700 text-sm rounded-md text-white px-3 py-2">Delete</a>    
+                        @endcan
                         </td>
                     </tr>
                     @endforeach

@@ -15,18 +15,16 @@ class ArticalRepository implements ArticalRepositoryInterface
     
     public function create(Request $request)
     {
-        // Validate the request data
+        
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:3',
             'author' => 'required|min:3', 
         ]);
 
-        // If validation fails, return the validator instance
         if ($validator->fails()) {
             return $validator;
         }
 
-        // Create a new article
         $artical = new Artical();
         $artical->title = $request->title;
         $artical->text = $request->text;
@@ -45,18 +43,15 @@ class ArticalRepository implements ArticalRepositoryInterface
     {
         $article = Artical::find($id);
 
-        // Validate the request data
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:3',
             'author' => 'required|min:3', 
         ]);
 
-        // If validation fails, return the validator instance
         if ($validator->fails()) {
             return $validator;
         }
 
-        // Update the article details
         $article->title = $request->title;
         $article->text = $request->text;
         $article->author = $request->author;

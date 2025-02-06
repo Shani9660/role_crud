@@ -9,8 +9,6 @@ interface ArticalRepositoryInterface
     public function index(int $perPage);
     
     public function create(Request $request);
-
-    // public function store();
     
     public function edit(string $id);
     

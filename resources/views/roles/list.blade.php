@@ -26,16 +26,18 @@
                     <tr class="border-b">
                         <td class="px-6 py-3 text-left">{{$role->id}}</td>
                         <td class="px-6 py-3 text-left">{{$role->name}}</td>
-                        <td class="px-6 py-3 text-left">{{$role->permissions->pluck('name')->implode(',')}}</td>
+                        <td class="px-6 py-4 text-left">{{$role->permissions->pluck('name')->implode(',')}}</td>
                         <td class="px-6 py-3 text-left">{{ $role->created_at->toFormattedDateString() }}</td>
-                        <td class="px-6 py-3 text-center">
-                        <a href="{{ route('roles.edit', $role->id ) }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Edit</a>
+                        <td class="px-5 py-3 text-center">
+                        @can('edit roles')
+                        <a href="{{ route('roles.edit', $role->id ) }}" class="bg-slate-700 text-sm rounded-md text-white px-4 py-2 ">Edit</a> 
+                        @endcan
+                        @can('delete roles')
                         <a href="javascript:void(0)" onclick='deleteRole({{$role->id}})' class="bg-red-700 text-sm rounded-md text-white px-3 py-2">Delete</a>
+                        @endcan
                         </td>
                     </tr>
-                    @endforeach
-
-                    
+                    @endforeach    
                 </tbody>
             </table>
             <div class="my-4">

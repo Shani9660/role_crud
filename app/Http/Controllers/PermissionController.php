@@ -5,9 +5,22 @@ namespace App\Http\Controllers;
 use App\Repositories\PermissionRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PermissionController extends Controller
+
+class PermissionController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+         return[
+            new Middleware('permission:view permissions', only: ['index']),
+            new Middleware('permission:edit permissions', only: ['edit']),
+            new Middleware('permission:create permissions', only: ['create']),
+            new Middleware('permission:destory permissions', only: ['destroy']),
+
+         ];
+    }
     protected $permissionRepository;
 
     public function __construct(PermissionRepositoryInterface $permissionRepository)
